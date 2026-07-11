@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-        IMAGE_NAME = "parth12/todo-app"   // <-- replace with your Docker Hub username
+        IMAGE_NAME = "pranipa12/todo-app"   // <-- replace with your Docker Hub username
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
         DB_USERNAME = "todouser"
         DB_PASSWORD = "123456"
