@@ -170,8 +170,6 @@ stage('Code Coverage') {
     //         sh "docker logout || true"
     //     }
     // }
-
-
     post {
     failure {
         emailext(
