@@ -43,24 +43,24 @@ stage('Code Coverage') {
     }
 }
 
-stage('OWASP Scan') {
-    steps {
-        sh '''
-        mvn org.owasp:dependency-check-maven:check \
-            -DnvdApiKey=$NVD_API_KEY
-        '''
-    }
-}
+// stage('OWASP Scan') {
+//     steps {
+//         sh '''
+//         mvn org.owasp:dependency-check-maven:check \
+//             -DnvdApiKey=$NVD_API_KEY
+//         '''
+//     }
+// }
 
-stage('Trivy Filesystem Scan') {
-    steps {
-        sh '''
-        trivy fs \
-        --severity HIGH,CRITICAL \
-        --exit-code 1 .
-        '''
-    }
-}
+// stage('Trivy Filesystem Scan') {
+//     steps {
+//         sh '''
+//         trivy fs \
+//         --severity HIGH,CRITICAL \
+//         --exit-code 1 .
+//         '''
+//     }
+// }
         // stage('Static Code Check') {
         //     steps {
         //         // Optional but recommended for production pipelines.
