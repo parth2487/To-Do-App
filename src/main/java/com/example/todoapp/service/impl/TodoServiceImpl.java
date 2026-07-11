@@ -25,7 +25,6 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoResponseDTO createTodo(TodoRequestDTO requestDTO) {
-        System.out.println("Hello World");
         Todo todo = todoMapper.toEntity(requestDTO);
         Todo saved = todoRepository.save(todo);
         return todoMapper.toResponseDTO(saved);
