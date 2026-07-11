@@ -20,29 +20,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Build & Test') {
-            steps {
-                sh 'mvn -B clean verify'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-
-stage('Code Coverage') {
-    steps {
-        sh 'mvn jacoco:report'
-    }
-}
-
 stage('Get Commit Info') {
     steps {
 script {
@@ -67,6 +44,32 @@ script {
 }
     }
 }
+
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                sh 'mvn -B clean verify'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+stage('Code Coverage') {
+    steps {
+        sh 'mvn jacoco:report'
+    }
+}
+
+
 // stage('OWASP Scan') {
 //     steps {
 //         sh '''
