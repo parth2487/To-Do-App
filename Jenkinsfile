@@ -8,6 +8,8 @@ pipeline {
         DB_USERNAME = "todouser"
         DB_PASSWORD = "123456"
         APP_PORT = "8081"
+            NVD_API_KEY = credentials('nvd-api-key')
+
     }
 
     options {
@@ -41,9 +43,12 @@ stage('Code Coverage') {
     }
 }
 
-stage('Dependency Scan') {
+stage('OWASP Scan') {
     steps {
-        sh 'mvn org.owasp:dependency-check-maven:check'
+        sh '''
+        mvn org.owasp:dependency-check-maven:check \
+            -DnvdApiKey=$NVD_API_KEY
+        '''
     }
 }
 
