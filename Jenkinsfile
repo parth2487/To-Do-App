@@ -156,15 +156,39 @@ script {
     // }
     }
 
+    // post {
+    //     success {
+    //         echo "Build #${env.BUILD_NUMBER} deployed successfully."
+    //     }
+    //     failure {
+    //         echo "Build #${env.BUILD_NUMBER} failed — check console output above."
+    //     }
+    //     always {
+    //         sh "docker logout || true"
+    //     }
+    // }
+
+
     post {
-        success {
-            echo "Build #${env.BUILD_NUMBER} deployed successfully."
-        }
-        failure {
-            echo "Build #${env.BUILD_NUMBER} failed — check console output above."
-        }
-        always {
-            sh "docker logout || true"
-        }
+    failure {
+        emailext(
+            to: env.LAST_COMMITTER_EMAIL,
+            subject: "Build Failed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+Hello ${env.LAST_COMMITTER},
+
+Your commit has caused the build to fail.
+
+Commit:
+${env.LAST_COMMIT_MESSAGE}
+
+Build URL:
+${env.BUILD_URL}
+
+Console:
+${env.BUILD_URL}console
+"""
+        )
     }
+}
 }
