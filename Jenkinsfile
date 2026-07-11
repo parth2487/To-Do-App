@@ -43,6 +43,26 @@ stage('Code Coverage') {
     }
 }
 
+stage('Get Commit Info') {
+    steps {
+        script {
+            env.LAST_COMMITTER = sh(
+                script: "git log -1 --pretty=format:'%an'",
+                returnStdout: true
+            ).trim()
+
+            env.LAST_COMMITTER_EMAIL = sh(
+                script: "git log -1 --pretty=format:'%ae'",
+                returnStdout: true
+            ).trim()
+
+            env.LAST_COMMIT_MESSAGE = sh(
+                script: "git log -1 --pretty=format:'%s'",
+                returnStdout: true
+            ).trim()
+        }
+    }
+}
 // stage('OWASP Scan') {
 //     steps {
 //         sh '''
